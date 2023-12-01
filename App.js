@@ -1,17 +1,19 @@
 import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import CategoriesScreen from "./app/screens/CategoriesScreen";
+
+const Stack = createNativeStackNavigator(); 
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Expense Tracker App</Text>
-      <Image
-        style={styles.image}
-        source={require("./app/assets/UnderConstruction.jpg")}
-      />
 
-      <StatusBar style="auto" />
-    </View>
+  const [categories, setCategories] = useState([]); 
+
+
+  return (
+    <CategoriesScreen categories={categories} setCategories={setCategories}></CategoriesScreen>
   );
 }
 
