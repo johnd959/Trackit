@@ -1,17 +1,15 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Image } from "react-native";
+import AppTextInput from "./app/components/AppTextInput";
+import AppDateInput from "./app/components/AppDateInput";
+import { NavigationContainer } from "@react-navigation/native";
+import AuthNavigator from "./app/navigation/AuthNavigator";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Expense Tracker App</Text>
-      <Image
-        style={styles.image}
-        source={require("./app/assets/UnderConstruction.jpg")}
-      />
-
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <AuthNavigator/>
+    </NavigationContainer>
   );
 }
 
@@ -26,9 +24,12 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
   },
-  text:{
+  text: {
     fontWeight: "bold",
     fontSize: 30,
     marginBottom: 20,
-  }
+  },
+  containerTest: {
+    marginTop: 100,
+  },
 });
