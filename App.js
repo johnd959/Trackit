@@ -5,10 +5,11 @@ import AppTextInput from "./app/components/AppTextInput";
 import AppDateInput from "./app/components/AppDateInput";
 import { NavigationContainer } from "@react-navigation/native";
 import AuthNavigator from "./app/navigation/AuthNavigator";
+import NavigationTheme from "./app/navigation/NavigationTheme";
 
 export default function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={NavigationTheme}>
       <AuthNavigator/>
     </NavigationContainer>
   );
