@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 import AppTextInput from "./app/components/AppTextInput";
 import AppDateInput from "./app/components/AppDateInput";
