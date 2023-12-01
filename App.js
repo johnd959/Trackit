@@ -1,19 +1,16 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
+import AppTextInput from "./app/components/AppTextInput";
+import AppDateInput from "./app/components/AppDateInput";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import CategoriesScreen from "./app/screens/CategoriesScreen";
-
-const Stack = createNativeStackNavigator(); 
+import AuthNavigator from "./app/navigation/AuthNavigator";
 
 export default function App() {
-
-  const [categories, setCategories] = useState([]); 
-
-
   return (
-    <CategoriesScreen categories={categories} setCategories={setCategories}></CategoriesScreen>
+    <NavigationContainer>
+      <AuthNavigator/>
+    </NavigationContainer>
   );
 }
 
@@ -28,9 +25,12 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
   },
-  text:{
+  text: {
     fontWeight: "bold",
     fontSize: 30,
     marginBottom: 20,
-  }
+  },
+  containerTest: {
+    marginTop: 100,
+  },
 });
