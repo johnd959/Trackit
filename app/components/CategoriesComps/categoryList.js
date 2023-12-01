@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet} from 'react-native'; 
+import {View, Text, StyleSheet, ScrollView} from 'react-native'; 
 import Category from './category';
 
 
@@ -8,9 +8,9 @@ export default function CategoryList({categories})
 
 
     return(
-        <View>
+        <ScrollView>
             {categories.map((category, index) => <Category key={index} item={category}></Category>)}
-        </View>
+        </ScrollView>
     )
 }
 
