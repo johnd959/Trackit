@@ -18,7 +18,7 @@ export default function AppDateInput({style, ...otherProps }) {
       toggleDatePicker();
       const currentDate = selectedDate;
       setDate(currentDate);
-      setEnteredDate(date.toDateString());
+      setEnteredDate(currentDate.toDateString());
     } else {
       toggleDatePicker();
     }
@@ -33,7 +33,7 @@ export default function AppDateInput({style, ...otherProps }) {
             onChange={onChange}
           />
       )}
-      {!showPicker && (
+      
         <Pressable
           onPress={toggleDatePicker}
         >
@@ -45,7 +45,7 @@ export default function AppDateInput({style, ...otherProps }) {
             {...otherProps}
           />
         </Pressable>
-      )}
+      
     </View>
   );
 }

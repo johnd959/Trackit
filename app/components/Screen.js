@@ -6,7 +6,7 @@ const dimension = Dimensions.get('window');
 
 function Screen({ children, style }) {
   return (
-    <SafeAreaView style={[styles.screen]}>
+    <SafeAreaView style={[styles.screen, style]}>
       <View style={style}>{children}</View>
     </SafeAreaView>
   );
