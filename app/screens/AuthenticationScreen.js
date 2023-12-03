@@ -1,10 +1,9 @@
-import { Button, StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import AppTextInput from "../components/AppTextInput";
 import AppButton from "../components/AppButton";
 
 import defaultStyles from "../config/styles";
-import Screen from "../components/Screen";
 
 export default function AuthenticationScreen({ navigation }) {
   return (
