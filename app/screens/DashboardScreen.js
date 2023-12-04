@@ -4,8 +4,9 @@ import PieChartExample from '../components/DashboardChart'
 import TableP from '../components/TableOfPieChart'
 import Button from '../components/CategoriesComps/Button'
 import Screen from '../components/Screen'
+import configStyles from '../config/styles'
 
-export default function DashboardScreen() {
+export default function DashboardScreen({navigation}) {
   
  
   return (
@@ -18,7 +19,7 @@ export default function DashboardScreen() {
         <Button
            
           title="Category"
-          color="accentGreen"
+          style={styles.button}
           
         />
           <View style={styles.separator} />
@@ -26,6 +27,7 @@ export default function DashboardScreen() {
           
           title="Total Amount"
           color="accentGreen"
+          onClick={() => navigation.navigate("Dashboard2")}
         />
       </View>
       <TableP style={[styles.TableP]}/>
@@ -55,4 +57,7 @@ const styles = StyleSheet.create({
   separator: {
     marginHorizontal: 20,
   },
+  button: {
+    backgroundColor: configStyles.colors.accentGreen,
+  }
 })
