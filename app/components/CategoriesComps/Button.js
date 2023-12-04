@@ -2,12 +2,12 @@ import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 import colors from '../../config/colors'; 
 import globalStyles from '../../config/styles'
 
-export default function Button({title, onClick})
+export default function Button({title, onClick, style})
 {
 
 
     return(
-        <TouchableOpacity style={styles.button} onPress={onClick}>
+        <TouchableOpacity style={[styles.button, style]} onPress={onClick}>
             <Text style={[globalStyles.text, styles.buttonText]}>{title}</Text>
         </TouchableOpacity>
     )
