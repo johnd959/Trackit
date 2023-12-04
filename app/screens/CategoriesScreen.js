@@ -33,7 +33,7 @@ export default function CategoriesScreen({setCategories}) {
     }
   ])
   const [name, setName] = useState();
-  const [color, setColor] = useState();
+  const [color, setColor] = useState(globalStyles.colors.primaryBlue);
   const [limit, setLimit] = useState();
   const [selectedCategory, setSelectedCategory] = useState(); 
 
@@ -78,7 +78,6 @@ export default function CategoriesScreen({setCategories}) {
   }
 
   const handleAdd = () => {
-    console.log("Inside handleAdd: " + name + color + limit); 
     if (selectedCategory != null) {
       selectedCategory.name = name;
       selectedCategory.color = color;

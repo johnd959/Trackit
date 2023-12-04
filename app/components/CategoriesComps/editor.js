@@ -24,10 +24,10 @@ export default function Editor({
         </View>
         <View>
           {
-            inputs.map((input) => <AppTextInput key={input.index} iconName={input.inputIcon} placeholder={input.placeholder} value={input.input} onChangeText={(text) => input.handleInputChange(text)}></AppTextInput>)
+            inputs.map((input) => <AppTextInput style={{marginBottom: 10}} key={input.index} iconName={input.inputIcon} placeholder={input.placeholder} value={input.input} onChangeText={(text) => input.handleInputChange(text)}></AppTextInput>)
           }
         </View>
-        <View>
+        <View style={{backgroundColor: globalStyles.colors.lightGrey, marginBottom: 10, borderRadius: 15}}>
           <Picker
           selectedValue={picker.selectedItem}
           onValueChange={(itemValue) => picker.handleSelected(itemValue)}
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     height: "50%",
     paddingHorizontal: 10,
     marginTop: "auto",
-    backgroundColor: globalStyles.colors.lightGrey,
+    backgroundColor: globalStyles.colors.softWhite,
   },
   textBox: {
     backgroundColor: "#CCC",
