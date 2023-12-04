@@ -4,8 +4,9 @@ import Screen from '../components/Screen'
 import BarChartExample from '../components/DashboardBarchart'
 import TableB from '../components/TableOfBarchart'
 import Button from '../components/CategoriesComps/Button'
+import configStyles from '../config/styles'
 
-export default function Dashboard2(){
+export default function Dashboard2({navigation}){
     return(
         <Screen style={[styles.root]}>
             <BarChartExample/>
@@ -13,14 +14,15 @@ export default function Dashboard2(){
         <Button
            
           title="Category"
-          color="accentGreen"
+
+          onClick={() => navigation.navigate("Dashboard")}
           
         />
           <View style={styles.separator} />
         <Button
           
           title="Total Amount"
-          color="accentGreen"
+          style={styles.button}
         />
       </View>
             <TableB/>
@@ -45,4 +47,7 @@ const styles = StyleSheet.create({
     separator: {
       marginHorizontal: 20,
     },
+    button: {
+      backgroundColor: configStyles.colors.accentGreen,
+    }
   })

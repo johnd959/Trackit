@@ -11,6 +11,11 @@ const dimension = Dimensions.get('screen');
 
 export default function CategoriesScreen({setCategories}) {
 
+  useEffect(
+    () => {Alert.alert("Overview", "Try adding and deleting categories. Be sure to select a color when adding one even though it seems it has blue selected by default")},
+    []
+  )
+
   const [modalVisible, setModalVisible] = useState(false); 
   const [categoryList, setCategoryList] = useState([
     {
@@ -30,7 +35,50 @@ export default function CategoriesScreen({setCategories}) {
       color: colors.accentGreen,
       name: 'health care',
       limit: '1000'
-    }
+    },
+    {
+      id: 4,
+      color: colors.accentGreen,
+      name: 'health care',
+      limit: '1000'
+    },
+    {
+      id: 5,
+      color: colors.accentGreen,
+      name: 'health care',
+      limit: '1000'
+    },
+    {
+      id: 6,
+      color: colors.accentGreen,
+      name: 'health care',
+      limit: '1000'
+    },
+    {
+      id: 7,
+      color: colors.accentGreen,
+      name: 'health care',
+      limit: '1000'
+    },
+    {
+      id: 8,
+      color: colors.accentGreen,
+      name: 'health care',
+      limit: '1000'
+    },
+    {
+      id: 9,
+      color: colors.accentGreen,
+      name: 'health care',
+      limit: '1000'
+    },
+    {
+      id: 10,
+      color: colors.accentGreen,
+      name: 'health care',
+      limit: '1000'
+    },
+
   ])
   const [name, setName] = useState();
   const [color, setColor] = useState(globalStyles.colors.primaryBlue);

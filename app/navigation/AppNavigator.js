@@ -14,7 +14,6 @@ export default function AppNavigator() {
   return (
     <Drawer.Navigator  drawerContent={(props) => <CustomAppNavigatorContent {...props} />}>
       <Drawer.Screen name="Dashboard" component={DashboardScreen} />
-      <Drawer.Screen name="Dashboard2" component={Dashboard2} />
       <Drawer.Screen name="Categories" component={CategoriesScreen} />
       <Drawer.Screen name="Adding Expense" component={ExpenseEntryScreen} />
 
