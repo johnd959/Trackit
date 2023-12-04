@@ -3,13 +3,13 @@ import Category from './category';
 
 
 
-export default function CategoryList({categories})
+export default function CategoryList({categories, editCategory, deleteCategory})
 {
 
 
     return(
         <ScrollView>
-            {categories.map((category, index) => <Category key={index} item={category}></Category>)}
+            {categories.map((category) => <Category deleteCategory={deleteCategory} editCategory={editCategory} key={category.id} item={category}></Category>)}
         </ScrollView>
     )
 }

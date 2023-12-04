@@ -3,72 +3,40 @@ import { Modal, StyleSheet, Text, TextInput, Alert, View } from "react-native";
 import { window } from "../../config/dimensions";
 import globalStyles from "../../config/styles";
 import Button from "./Button";
-import { Picker } from "@react-native-picker/picker";
+import AppTextInput from "../AppTextInput";
+import {Picker} from '@react-native-picker/picker';
 
 export default function Editor({
   visible,
   style,
   title,
-  handleSave,
-  setModalVisible,
+  buttons,
+  inputs,
+  picker,
 }) {
-  const [name, setName] = useState();
-  const [color, setColor] = useState();
-  const [limit, setLimit] = useState();
 
-
-  const handleNameChange = (text) => {
-    setName(text);
-  };
-  const handleLimitChange = (text) => {
-    setLimit(text);
-  };
-  const handleAdd = () => {
-    if (name && limit && color) {
-      handleSave({
-        color: "green",
-        name: name,
-        limit: limit,
-      });
-    } else {
-      Alert.alert("No category was created");
-    }
-    setName();
-    setColor();
-    setLimit();
-  };
 
   return (
-    <Modal visible={visible}>
+    <Modal visible={visible} animationType="slide" transparent={true}>
       <View style={[styles.body, style]}>
         <View>
           <Text style={[globalStyles.text, styles.title]}>{title}</Text>
         </View>
         <View>
-          <View style={styles.textBox}>
-            <TextInput
-              style={globalStyles.text}
-              placeholder="Category name"
-              value={name}
-              onChangeText={(text) => handleNameChange(text)}
-            ></TextInput>
-          </View>
-          <View style={styles.textBox}>
-            <TextInput
-              style={globalStyles.text}
-              placeholder="Limit"
-              value={limit}
-              onChangeText={(text) => handleLimitChange(text)}
-            ></TextInput>
-          </View>
+          {
+            inputs.map((input) => <AppTextInput key={input.index} iconName={input.inputIcon} placeholder={input.placeholder} value={input.input} onChangeText={(text) => input.handleInputChange(text)}></AppTextInput>)
+          }
+        </View>
+        <View>
+          <Picker
+          selectedValue={picker.selectedItem}
+          onValueChange={(itemValue) => picker.handleSelected(itemValue)}
+          >
+            {picker.pickerItems.map((item) => <Picker.Item key={item.label} label={item.label} value={item.value}></Picker.Item>)}
+          </Picker>
         </View>
         <View style={styles.buttons}>
-          <Button
-            style={styles.button}
-            title="Cancel"
-            onAdd={() => setModalVisible(false)}
-          />
-          <Button style={styles.button} title="Save" onAdd={handleAdd}></Button>
+          {buttons.map((button) => <Button key={button.title} style={styles.button} title={button.title} onClick={button.func}></Button>)}
         </View>
       </View>
     </Modal>
@@ -79,8 +47,10 @@ const styles = StyleSheet.create({
   body: {
     display: "flex",
     justifyContent: "center",
-    flex: 1,
+    height: "50%",
     paddingHorizontal: 10,
+    marginTop: "auto",
+    backgroundColor: globalStyles.colors.lightGrey,
   },
   textBox: {
     backgroundColor: "#CCC",
