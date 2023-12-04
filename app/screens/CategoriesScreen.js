@@ -1,36 +1,70 @@
-import { BackHandler, StyleSheet, Text, View, Dimensions } from 'react-native'
-import React from 'react';
+import { BackHandler, StyleSheet, Text, View, Dimensions, Alert } from 'react-native'
+import {useState, useEffect} from 'react';
 import Screen from '../components/Screen';
 import CategoryList from '../components/CategoriesComps/categoryList';
 import globalStyles from '../config/styles'
-import AddButton from '../components/CategoriesComps/Button';
+import AppButton from '../components/AppButton';
 import colors from '../config/colors'
 import Editor from '../components/CategoriesComps/editor';
-import {Picker} from '@react-native-picker/picker'; 
 
 const dimension = Dimensions.get('screen'); 
 
 export default function CategoriesScreen({setCategories}) {
 
-  const [modalVisible, setModalVisible] = React.useState(false); 
-  const [categoryList, setCategoryList] = React.useState([
+  const [modalVisible, setModalVisible] = useState(false); 
+  const [categoryList, setCategoryList] = useState([
     {
+      id: 1,
       color: colors.accentGreen,
       name: 'health care',
-      limit: 1000
+      limit: '1000'
     },
     {
+      id: 2,
       color: colors.accentGreen,
       name: 'health care',
-      limit: 1000
+      limit: '1000'
     },
     {
+      id: 3,
       color: colors.accentGreen,
       name: 'health care',
-      limit: 1000
+      limit: '1000'
     }
   ])
-  const [selectedLanguage, setSelectedLanguage] = React.useState();
+  const [name, setName] = useState();
+  const [color, setColor] = useState();
+  const [limit, setLimit] = useState();
+  const [selectedCategory, setSelectedCategory] = useState(); 
+
+  useEffect(
+    () => {
+      if(selectedCategory){
+        setName(selectedCategory.name);
+        setColor(selectedCategory.color);
+        setLimit(selectedCategory.limit);
+      }
+      else{
+        setName();
+        setColor();
+        setLimit();
+      }
+
+    },
+    [selectedCategory]
+  );
+
+  const handleSelected = (itemValue) => {
+    setColor(itemValue);
+  };
+
+  const handleNameChange = (text) => {
+    setName(text);
+  };
+  const handleLimitChange = (text) => {
+    setLimit(text);
+
+  };
 
   function handleOnAdd()
   {
@@ -40,31 +74,111 @@ export default function CategoriesScreen({setCategories}) {
   function handleModalAdd(category)
   {
     setCategoryList([...categoryList, category]); 
-    console.log(category); 
     setModalVisible(false); 
   }
 
+  const handleAdd = () => {
+    console.log("Inside handleAdd: " + name + color + limit); 
+    if (selectedCategory != null) {
+      selectedCategory.name = name;
+      selectedCategory.color = color;
+      selectedCategory.limit = limit;
+      setSelectedCategory();
+    } else if (name && limit && color){ 
+      handleModalAdd({
+        id: Math.random() * 1000,
+        color: color,
+        name: name,
+        limit: limit,
+      });
+    }
+    else {
+      Alert.alert("no category was created"); 
+    }
+    setName();
+    setColor();
+    setLimit();
+    setModalVisible(false);
+  };
+  
+let modalContents = {
+  inputs: [
+    {
+      input: name,
+      handleInputChange: handleNameChange,
+      inputIcon: "folder-text-outline",
+      placeholder: "Name",
+      index: 1,
+    },
+    {
+      input: limit,
+      handleInputChange: handleLimitChange,
+      inputIcon: "cash-multiple",
+      placeholder: "Limit",
+      index: 2,
+    }
+  ],
+  picker: {
+    handleSelected: handleSelected,
+    selectedItem: color,
+    pickerItems: [
+      {
+        label: "Blue",
+        value: globalStyles.colors.primaryBlue
+      },
+      {
+        label: "Green",
+        value: globalStyles.colors.accentGreen
+      },
+      {
+        label: "Charcoal",
+        value: globalStyles.colors.darkCharcoal
+      },
+      {
+        label: "Grey",
+        value: globalStyles.colors.neutralGrey
+      },
+      {
+        label: "Red",
+        value: "red"
+      },
+    ]
+  },
+  buttons: [
+    {
+      title: "Save",
+      func: handleAdd
+    },
+    {
+      title: "Cancel",
+      func: () => {
+        setSelectedCategory();
+        setModalVisible(false);
+      }
+    }
+  ]
+}
+
+
+  function handleDelete(item)
+  {
+    setCategoryList(categoryList.filter((category) => category.id != item.id ));
+  }
+
+  function handleModalEditCategory()
+  {
+    setModalVisible(true);
+  }
 
   return (
     <Screen style={styles.mainScreen}>
       <View>
-        <Text style={[globalStyles.text, styles.heading]}>Categories</Text>
-        <CategoryList style={styles.categoryList} categories={categoryList}></CategoryList>
+        <CategoryList deleteCategory={handleDelete} editCategory={{handleModalEditCategory, setSelectedCategory}} style={styles.categoryList} categories={categoryList}></CategoryList>
       </View>
       <View>
-        <AddButton title="Add Category" onAdd={handleOnAdd}></AddButton>
+        <AppButton title="Add Category" onPress={handleOnAdd} color='accentGreen'></AppButton>
       </View>
-      <Editor visible={modalVisible} title={'Category'} handleSave={handleModalAdd} setModalVisible={setModalVisible}></Editor>
-      <Picker
-            selectedValue={selectedLanguage}
-            onValueChange={(itemValue, itemIndex) =>
-              setSelectedLanguage(itemValue)
-            }
-          >
-            <Picker.Item label="Java" value="java" />
-            <Picker.Item label="JavaScript" value="js" />
-            <Picker.Item label="C sharp" value="C#"/>
-          </Picker>
+      {modalContents? <Editor visible={modalVisible} title={'Category'} handleSave={handleModalAdd} setModalVisible={setModalVisible} buttons={modalContents.buttons} inputs={modalContents.inputs} picker={modalContents.picker}></Editor> : <></>}
     </Screen>
   )
 }
@@ -76,6 +190,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     paddingHorizontal: 10,
     justifyContent: 'space-between', 
+    backgroundColor: colors.primaryBlue,
   },
   heading : {
     borderBottomColor: 'black',
